@@ -1,36 +1,154 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Cancer Analysis Platform: AI-Powered Histology Diagnostics
 
-## Getting Started
+An advanced, data-driven medical platform for the Digital Image-Based Comparison of Normal and Cancer Cells across different human organs. This system utilizes a hybrid approach combining **Next.js**, **OpenCV**, and **Python-based Image Analysis** to provide real-time diagnostic reports with professional PDF export capabilities.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🚀 Quick Start (Local Setup)
+
+### 1. Prerequisites
+- **Node.js**: v20 or higher (Download from [nodejs.org](https://nodejs.org/))
+- **Python**: v3.10+ (Ensure "Add to PATH" is checked during installation)
+- **Git**: For cloning the repository
+- **Docker Desktop**: Required for containerized deployment on Windows.
+- **Database**: PostgreSQL (Local/Docker) or SQLite (for dev)
+
+### 2. General Setup
+
+#### **Windows (PowerShell/CMD)**:
+```powershell
+# Clone and install Node dependencies
+npm install
+
+# Setup Python Virtual Environment (Recommended)
+python -m venv venv
+.\venv\Scripts\activate
+
+# Install Python dependencies
+pip install -r requirements.txt
+
+# Initial database setup
+npx prisma db push
+npx prisma db seed
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#### **Linux/macOS**:
+```bash
+# Clone and install Node dependencies
+npm install
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# Setup Python Virtual Environment
+python3 -m venv venv
+source venv/bin/activate
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Install Python dependencies
+pip3 install -r requirements.txt
 
-## Learn More
+# Initial database setup
+npx prisma db push
+npx prisma db seed
+```
 
-To learn more about Next.js, take a look at the following resources:
+### 3. Run the Development Server
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) to access the platform.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🐳 Docker Setup (Windows)
 
-## Deploy on Vercel
+To run this project on Windows using Docker, follow these steps:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 1. Install Docker Desktop
+1. Download **Docker Desktop for Windows** from [docker.com](https://www.docker.com/products/docker-desktop/).
+2. Run the installer and ensure **"Use WSL 2 instead of Hyper-V"** is checked.
+3. Restart your computer if prompted.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 2. Configure WSL 2
+1. Open PowerShell as Administrator and run:
+   ```powershell
+   wsl --install
+   ```
+2. Ensure you have a Linux distribution installed (e.g., Ubuntu from Microsoft Store).
+3. In Docker Desktop Settings, go to **Resources > WSL Integration** and enable it for your installed distribution.
+
+### 3. Running with PowerShell
+Open a PowerShell terminal in the project directory and run:
+
+```powershell
+# Build and Start the application
+docker compose up -d --build
+
+# Check if containers are running
+docker ps
+
+# View Real-time Logs
+docker compose logs -f
+```
+
+---
+
+## 🚀 Quick Start (Local Setup)
+
+## 📚 Documentation
+
+For more detailed information, please refer to:
+- [**User Guide**](./USER_GUIDE.md): Page-by-page instructions and button usage.
+- [**Technical Specifications**](./PROJECT_SPECIFICATIONS.txt): Deep dive into algorithms and tools.
+**Access**: [http://localhost:3001](http://localhost:3001)
+
+---
+
+## 🧠 Training the Diagnostic Engine
+
+The platform features a custom-built diagnostic engine that learns from your provided histology samples.
+
+### How to Train:
+1. Navigate to the **Health Scanner** page.
+2. Select an **Organ** (e.g., Skin, Lung, Breast).
+3. Upload a folder/set of **Cancer Samples** (H&E stained slides).
+4. Upload a folder/set of **Healthy Samples**.
+5. Click **"Train Scanner"**.
+
+### Manual CLI Training (Background):
+If you want to train via command line:
+```bash
+python3 scripts/train_model.py
+```
+This updates the `scripts/model_weights.json` used by the analysis engine.
+
+---
+
+## 🔬 Image Analysis Workflow
+
+Once trained, the system performs a multi-step check on every uploaded image:
+
+1. **Validation ("Need a Picture")**: The system detects if the input is a valid histology slide. If it is too dark, blurry, or not an H&E stain, it returns a "Need a Picture" warning.
+2. **Feature Extraction**: OpenCV extracts metrics like:
+   - Average Cell Area
+   - Nuclear/Cytoplasmic Ratio
+   - Circularity (Cell Roundness)
+   - Cell Density
+3. **Diagnostic Comparison**: The extracted metrics are compared against the **trained data centroids** for the selected organ.
+4. **Report Generation**: A professional report is generated, which can be exported as a PDF "Super Data Sheet".
+
+---
+
+## 📄 Key PDF Features
+The downloaded diagnostic reports include:
+- **Scan ID & Timestamp** for traceability.
+- **Color-coded Status** (Emerald for Healthy, Rose for Cancer).
+- **Comparative Data Table**: Shows exactly how your uploaded sample deviates from healthy averages.
+- **Clinical Recommendations** based on AI findings.
+
+---
+
+## 🛠 Tech Stack
+- **Frontend**: Next.js 14, Tailwind CSS, Framer Motion, Lucide Icons.
+- **Backend**: Next.js API Routes, Python 3 (Subprocess Bridge).
+- **Computer Vision**: OpenCV, NumPy.
+- **Database**: PostgreSQL with Prisma ORM.
+- **Reporting**: jsPDF, jsPDF-AutoTable.
+- **Containerization**: Docker & Docker Compose.

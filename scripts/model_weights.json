@@ -1,0 +1,86 @@
+{
+    "Skin": {
+        "cancer": {
+            "darkness": 0.7512045426234745,
+            "circularity": 0.5355216351154858,
+            "avgArea": 134.16426193448885,
+            "sampleCount": 6
+        },
+        "healthy": {
+            "darkness": 0.604885939800193,
+            "circularity": 0.4722006663994705,
+            "avgArea": 134.8431265635262,
+            "sampleCount": 6
+        }
+    },
+    "Liver": {
+        "cancer": {
+            "darkness": 0.7512045426234745,
+            "circularity": 0.5355216351154858,
+            "avgArea": 134.16426193448885,
+            "sampleCount": 6
+        },
+        "healthy": {
+            "darkness": 0.604885939800193,
+            "circularity": 0.4722006663994705,
+            "avgArea": 134.8431265635262,
+            "sampleCount": 6
+        }
+    },
+    "Kidney": {
+        "cancer": {
+            "darkness": 0.7512045426234745,
+            "circularity": 0.5355216351154858,
+            "avgArea": 134.16426193448885,
+            "sampleCount": 6
+        },
+        "healthy": {
+            "darkness": 0.604885939800193,
+            "circularity": 0.4722006663994705,
+            "avgArea": 134.8431265635262,
+            "sampleCount": 6
+        }
+    },
+    "Breast": {
+        "cancer": {
+            "darkness": 0.7512045426234745,
+            "circularity": 0.5355216351154858,
+            "avgArea": 134.16426193448885,
+            "sampleCount": 6
+        },
+        "healthy": {
+            "darkness": 0.604885939800193,
+            "circularity": 0.4722006663994705,
+            "avgArea": 134.8431265635262,
+            "sampleCount": 6
+        }
+    },
+    "Colon": {
+        "cancer": {
+            "darkness": 0.7512045426234745,
+            "circularity": 0.5355216351154858,
+            "avgArea": 134.16426193448885,
+            "sampleCount": 6
+        },
+        "healthy": {
+            "darkness": 0.604885939800193,
+            "circularity": 0.4722006663994705,
+            "avgArea": 134.8431265635262,
+            "sampleCount": 6
+        }
+    },
+    "Lung": {
+        "cancer": {
+            "darkness": 0.7512045426234745,
+            "circularity": 0.5355216351154858,
+            "avgArea": 134.16426193448885,
+            "sampleCount": 6
+        },
+        "healthy": {
+            "darkness": 0.604885939800193,
+            "circularity": 0.4722006663994705,
+            "avgArea": 134.8431265635262,
+            "sampleCount": 6
+        }
+    }
+}

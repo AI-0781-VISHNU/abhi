@@ -1,0 +1,45 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Organ {
+  id             String       @id @default(cuid())
+  name           String       @unique
+  normalCellType String
+  cancerType     String
+  description    String?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  metrics        CellMetric[]
+  images         Image[]
+}
+
+model CellMetric {
+  id             String   @id @default(cuid())
+  organId        String
+  isCancer       Boolean
+  avgArea        Float
+  avgNuclearArea Float
+  avgPerimeter   Float
+  avgCircularity Float
+  avgDensity     Float
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  organ          Organ    @relation(fields: [organId], references: [id], onDelete: Cascade)
+}
+
+model Image {
+  id        String   @id @default(cuid())
+  organId   String
+  url       String
+  isCancer  Boolean
+  label     String?
+  createdAt DateTime @default(now())
+  organ     Organ    @relation(fields: [organId], references: [id], onDelete: Cascade)
+}

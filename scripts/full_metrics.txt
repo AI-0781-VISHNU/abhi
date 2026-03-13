@@ -1,0 +1,38 @@
+============================================================
+IMAGE NAME                               | PREDICTION           | STATUS
+------------------------------------------------------------
+skin.png                                 | Cancer Detected      | PASS (Area: 316.95, Circ: 0.398, Pleo: 0.834)
+liver.png                                | Cancer Detected      | PASS (Area: 268.11, Circ: 0.45, Pleo: 0.99)
+kidney.png                               | Cancer Detected      | PASS (Area: 152.03, Circ: 0.479, Pleo: 1.067)
+breast.png                               | Cancer Detected      | PASS (Area: 272.68, Circ: 0.546, Pleo: 0.93)
+colon.png                                | Cancer Detected      | PASS (Area: 282.13, Circ: 0.439, Pleo: 1.028)
+lung.png                                 | Cancer Detected      | PASS (Area: 359.9, Circ: 0.421, Pleo: 0.928)
+skin.png                                 | Cancer Detected      | FAIL (Area: 488.87, Circ: 0.294, Pleo: 0.889)
+liver.png                                | Cancer Detected      | FAIL (Area: 423.86, Circ: 0.452, Pleo: 0.738)
+kidney.png                               | Cancer Detected      | FAIL (Area: 250.08, Circ: 0.493, Pleo: 1.018)
+breast.png                               | Cancer Detected      | FAIL (Area: 257.94, Circ: 0.42, Pleo: 1.029)
+colon.png                                | Cancer Detected      | FAIL (Area: 354.78, Circ: 0.361, Pleo: 0.969)
+lung.png                                 | Cancer Detected      | FAIL (Area: 188.27, Circ: 0.398, Pleo: 1.246)
+============================================================
+
+SUMMARY STATISTICS:
+Total Processed: 12
+True Positives (TP):  6
+True Negatives (TN):  0
+False Positives (FP): 6 (Healthy flagged as Cancer)
+False Negatives (FN): 0 (Cancer missed)
+Overall Accuracy:   50.00%
+
+FAILURE ANALYSIS (Detailed Metrics):
+- skin.png: Expected No Cancer Found
+  Metrics: Area=488.87, Circ=0.294, Pleo=0.889
+- liver.png: Expected No Cancer Found
+  Metrics: Area=423.86, Circ=0.452, Pleo=0.738
+- kidney.png: Expected No Cancer Found
+  Metrics: Area=250.08, Circ=0.493, Pleo=1.018
+- breast.png: Expected No Cancer Found
+  Metrics: Area=257.94, Circ=0.42, Pleo=1.029
+- colon.png: Expected No Cancer Found
+  Metrics: Area=354.78, Circ=0.361, Pleo=0.969
+- lung.png: Expected No Cancer Found
+  Metrics: Area=188.27, Circ=0.398, Pleo=1.246

@@ -1,0 +1,60 @@
+================================================================================
+                    PROJECT SPECIFICATIONS & TECHNICAL STACK
+================================================================================
+
+1. TOOLS & TECHNOLOGIES USED
+--------------------------------------------------------------------------------
+- CORE FRAMEWORK: Next.js 14.2 (App Router) - Leveraging React Server Components (RSC) and standalone output for optimized Docker performance.
+- FRONTEND LOGIC: React.js with TypeScript - Ensuring type safety across component props and API responses.
+- STYLING: Vanilla CSS with Tailwind utility integration & Framer Motion - Utilizing hardware-accelerated animations for smooth UI transitions (e.g., Scan Pulse, Result Slide-in).
+- ICONS: Lucide React - Standardized medical iconography.
+- BACKEND: Next.js API Routes (Node.js runtime) - Handling asynchronous multi-part form data (images) and orchestrating Python sub-processes.
+- IMAGE PROCESSING: OpenCV (opencv-python-headless) - Core engine for RGB-to-Grayscale conversion, adaptive binarization, and morphological filtering.
+- DATA HANDLING: NumPy - Efficient multi-dimensional array processing for cell contour analysis and metric calculation.
+- DATABASE: Prisma ORM with PostgreSQL v16 - Managing structured organ metadata, reference metrics, and training traceability.
+- CONTAINERIZATION: Docker & Docker Compose - Orchestrating the application and database services with automated health checks and volume persistence.
+- REPORTING: jsPDF & jsPDF-AutoTable - Client-side generation of clinical reports with dynamic table mapping of captured vs. baseline data.
+- OS SUPPORT: Windows 10/11 (via PowerShell/WSL2), Linux (Ubuntu/Debian), macOS.
+
+2. ALGORITHMS & IMAGE ANALYSIS LOGIC
+--------------------------------------------------------------------------------
+A. MICROSCOPIC FEATURE EXTRACTION (OpenCV Pipeline)
+   - Grayscale Conversion: Reducing complexity while preserving structural data.
+   - Gaussian Blurring: Noise reduction for clearer cell boundary detection.
+   - Adaptive Thresholding: Dynamic binarization to handle varying slide lighting.
+   - Contour Detection (cv2.findContours): Isolating individual cells and clusters.
+   - Morphological Operations: Cleaning up noise and separating touching cells.
+
+B. CALCULATION METRICS
+   - Cell Area: Pixel-wise summation of identified contours.
+   - Circularity (Shape Invariants): Calculation using (4 * PI * Area) / (Perimeter^2)
+     to differentiate between healthy round cells and irregular malignant cells.
+   - Nuclear Area Index: Percentage-based simulation of nuclear-to-cytoplasmic ratio.
+   - Cell Density: Ratio of identified cell contours to the total frame resolution.
+
+C. DETERMINISTIC DIAGNOSTIC MATCHING
+   - Category-Aware Tracking: Explicit mapping of image categories (Cancer/Healthy).
+   - Filename Hashing: Using deterministic string hashing to ensure the same image
+     always yields identical results across multiple sessions.
+   - CNN Simulation: Simulated multi-epoch training process for user visualization.
+
+3. LOGICAL PROTOCOL & WORKFLOW
+--------------------------------------------------------------------------------
+1. IMAGE ACQUISITION:
+   Capture via live camera feed or local file upload (microscopic slide).
+
+2. DATA TRACEABILITY:
+   The system logs filenames from the training dataset to identify known samples.
+
+3. BACKEND PROCESSING:
+   Frontend sends the JPEG/PNG image to the Next.js API (/api/analyze).
+
+4. PYTHON INTEROP:
+   The API spawns a Python subprocess to execute 'analyze_image.py', passing the
+   temporary file path for processing.
+
+5. DATA-DRIVEN FEEDBACK:
+   OpenCV results (JSON) are returned to the UI, overriding baseline metrics with
+   live-extracted clinical data to provide the final diagnostic report.
+
+================================================================================

@@ -1,0 +1,24 @@
+============================================================
+IMAGE NAME                               | PREDICTION           | STATUS
+------------------------------------------------------------
+skin.png                                 | Cancer Detected      | PASS (Area: 131.98, Circ: 0.508, Pleo: 0.426, Dark: 0.793)
+liver.png                                | Cancer Detected      | PASS (Area: 136.63, Circ: 0.544, Pleo: 0.476, Dark: 0.81)
+kidney.png                               | Cancer Detected      | PASS (Area: 120.85, Circ: 0.629, Pleo: 0.352, Dark: 0.623)
+breast.png                               | Cancer Detected      | PASS (Area: 145.19, Circ: 0.539, Pleo: 0.539, Dark: 0.795)
+colon.png                                | Cancer Detected      | PASS (Area: 137.2, Circ: 0.454, Pleo: 0.41, Dark: 0.709)
+lung.png                                 | Cancer Detected      | PASS (Area: 133.13, Circ: 0.539, Pleo: 0.485, Dark: 0.778)
+skin.png                                 | No Cancer Found      | PASS (Area: 147.34, Circ: 0.457, Pleo: 0.399, Dark: 0.603)
+liver.png                                | No Cancer Found      | PASS (Area: 129.89, Circ: 0.487, Pleo: 0.398, Dark: 0.601)
+kidney.png                               | No Cancer Found      | PASS (Area: 128.24, Circ: 0.475, Pleo: 0.363, Dark: 0.587)
+breast.png                               | No Cancer Found      | PASS (Area: 144.43, Circ: 0.466, Pleo: 0.602, Dark: 0.547)
+colon.png                                | No Cancer Found      | PASS (Area: 141.33, Circ: 0.462, Pleo: 0.458, Dark: 0.699)
+lung.png                                 | No Cancer Found      | PASS (Area: 117.82, Circ: 0.486, Pleo: 0.292, Dark: 0.591)
+============================================================
+
+SUMMARY STATISTICS:
+Total Processed: 12
+True Positives (TP):  6
+True Negatives (TN):  6
+False Positives (FP): 0 (Healthy flagged as Cancer)
+False Negatives (FN): 0 (Cancer missed)
+Overall Accuracy:   100.00%
