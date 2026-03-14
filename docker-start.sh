@@ -13,7 +13,7 @@ done
 echo "Database is up - initializing schema..."
 
 # Push the schema (creates tables if they don't exist)
-npx prisma db push --accept-data-loss
+npx prisma db push --accept-data-loss --skip-generate
 
 # Seed the database
 echo "Seeding initial organ data..."
