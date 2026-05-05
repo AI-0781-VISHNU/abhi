@@ -1,5 +1,5 @@
 {
-  "name": "abhi",
+  "name": "cellsight-ai",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,9 +7,20 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prisma:seed": "prisma db seed"
+    "prisma:seed": "prisma db seed",
+    "cap:sync": "npx cap sync",
+    "cap:open:android": "npx cap open android",
+    "cap:open:ios": "npx cap open ios"
   },
   "dependencies": {
+    "@capacitor/android": "^8.2.0",
+    "@capacitor/camera": "^8.1.0",
+    "@capacitor/cli": "^7.6.0",
+    "@capacitor/core": "^8.2.0",
+    "@capacitor/filesystem": "^8.1.2",
+    "@capacitor/ios": "^8.2.0",
+    "@capacitor/preferences": "^8.0.1",
+    "@capacitor/share": "^8.0.1",
     "@prisma/client": "^6.2.1",
     "clsx": "^2.1.1",
     "dotenv": "^17.3.1",
@@ -18,6 +29,7 @@
     "jspdf-autotable": "^5.0.7",
     "lucide-react": "^0.577.0",
     "next": "14.2.35",
+    "next-nprogress-bar": "^2.4.7",
     "prisma": "^6.2.1",
     "react": "^18",
     "react-dom": "^18",

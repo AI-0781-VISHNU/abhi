@@ -8,6 +8,9 @@ import LiveCamera from '@/components/LiveCamera'
 import Image from 'next/image'
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
+import { Filesystem, Directory } from '@capacitor/filesystem'
+import { Share } from '@capacitor/share'
+import { Capacitor } from '@capacitor/core'
 
 // Developer Toggle
 const SHOW_UPLOAD_BUTTON = true
@@ -423,7 +426,29 @@ const LiveAnalysisPage = () => {
     doc.setTextColor('#94a3b8')
     doc.text('DISCLAIMER: This is an AI-assisted diagnostic report. Final clinical confirmation by a licensed pathologist is required.', 20, 280)
 
-    doc.save(`Diagnostic_Report_${selectedOrgan.name}_${Date.now()}.pdf`)
+    const fileName = `Diagnostic_Report_${selectedOrgan.name}_${Date.now()}.pdf`
+    
+    if (Capacitor.isNativePlatform()) {
+      const pdfBase64 = doc.output('datauristring').split(',')[1]
+      
+      Filesystem.writeFile({
+        path: fileName,
+        data: pdfBase64,
+        directory: Directory.Cache
+      }).then((result) => {
+        Share.share({
+          title: 'CellVision AI Report',
+          text: `Diagnostic report for ${selectedOrgan.name}`,
+          url: result.uri,
+          dialogTitle: 'Save or Share Report'
+        })
+      }).catch(err => {
+        console.error("Native save failed:", err)
+        alert("Could not save the report to your device.")
+      })
+    } else {
+      doc.save(fileName)
+    }
   }
 
   useEffect(() => {
@@ -456,7 +481,7 @@ const LiveAnalysisPage = () => {
     <main className="min-h-screen bg-slate-950 text-white pb-20 font-sans">
       <Navbar />
       
-      <div className="container mx-auto px-8 pt-32">
+      <div className="container mx-auto px-4 sm:px-8 pt-24 sm:pt-32">
         {/* Header and Training Action */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
           <div>
@@ -464,7 +489,7 @@ const LiveAnalysisPage = () => {
               <div className="p-2 rounded-lg medical-gradient">
                 <Brain className="w-5 h-5 text-white" />
               </div>
-              <h1 className="text-4xl font-bold">Health <span className="text-slate-500 font-light">Scanner</span></h1>
+              <h1 className="text-3xl sm:text-4xl font-bold">Health <span className="text-slate-500 font-light">Scanner</span></h1>
             </div>
             <p className="text-slate-400">Pick an organ and upload a picture to check for health issues.</p>
           </div>
@@ -519,7 +544,7 @@ const LiveAnalysisPage = () => {
         </div>
 
         {/* Organ Selection Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-16">
+        <div className="grid grid-cols-3 sm:grid-cols-5 gap-3 sm:gap-4 mb-16">
           {organs.map((organ) => {
             const displayImage = organ.images.find(img => !img.isCancer)?.url || organ.images[0]?.url || '/placeholder.png'
             const isSelected = selectedOrgan?.id === organ.id
@@ -621,7 +646,7 @@ const LiveAnalysisPage = () => {
                   onStop={() => setIsCameraActive(false)}
                 />
               ) : (
-                <div className="relative w-full aspect-video rounded-3xl overflow-hidden glass border-slate-800 flex flex-col items-center justify-center p-8 text-center bg-[url('/images/medical_hero_bg_1773116561384.png')] bg-cover bg-center">
+                <div className="relative w-full aspect-square sm:aspect-video min-h-[450px] sm:min-h-[400px] rounded-3xl overflow-hidden glass border-slate-800 flex flex-col items-center justify-center p-8 text-center bg-[url('/images/medical_hero_bg_1773116561384.png')] bg-cover bg-center">
                   <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" />
                   {!isAnalyzing && !analysisResult ? (
                     <div className="relative z-10 flex flex-col items-center">
@@ -634,7 +659,7 @@ const LiveAnalysisPage = () => {
                       <div className="flex items-center gap-4">
                         <button 
                           onClick={() => setIsCameraActive(true)}
-                          className="px-8 py-3 rounded-xl medical-gradient text-sm font-bold text-white transition-all active:scale-95 shadow-lg shadow-cyan-900/20"
+                          className="px-10 py-4 rounded-xl medical-gradient text-base sm:text-sm font-bold text-white transition-all active:scale-95 shadow-lg shadow-cyan-900/20"
                         >
                           Start Live Feed
                         </button>
@@ -740,7 +765,7 @@ const LiveAnalysisPage = () => {
                   className="space-y-6"
                 >
                   {/* Diagnosis Header */}
-                  <div className={`p-8 rounded-3xl glass border-2 relative overflow-hidden ${
+                  <div className={`p-4 sm:p-8 rounded-3xl glass border-2 relative overflow-hidden ${
                     analysisResult.status === 'Cancer Detected' ? 'border-rose-500/30 bg-rose-500/5' : 
                     analysisResult.status === 'Need a Picture' ? 'border-amber-500/30 bg-amber-500/5' :
                     'border-emerald-500/30 bg-emerald-500/5'
@@ -779,7 +804,7 @@ const LiveAnalysisPage = () => {
                     
                     <div className="mb-8 relative z-10">
                       <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-2">Result</span>
-                      <h4 className={`text-6xl font-black uppercase tracking-tighter leading-none ${
+                      <h4 className={`text-4xl sm:text-6xl font-black uppercase tracking-tighter leading-none ${
                         analysisResult.status === 'Cancer Detected' ? 'text-rose-500' : 
                         analysisResult.status === 'Need a Picture' ? 'text-amber-500' :
                         'text-emerald-500'

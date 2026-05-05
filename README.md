@@ -1,10 +1,10 @@
-# Cancer Analysis Platform: AI-Powered Histology Diagnostics
+# CellSight AI: AI-Powered Histology Diagnostics
 
 An advanced, data-driven medical platform for the Digital Image-Based Comparison of Normal and Cancer Cells across different human organs. This system utilizes a hybrid approach combining **Next.js**, **OpenCV**, and **Python-based Image Analysis** to provide real-time diagnostic reports with professional PDF export capabilities.
 
 ---
 
-## 🚀 Quick Start (Local Setup)
+## Quick Start (Local Setup)
 
 ### 1. Prerequisites
 - **Node.js**: v20 or higher (Download from [nodejs.org](https://nodejs.org/))
@@ -22,6 +22,9 @@ npm install
 
 # Setup Python Virtual Environment (Recommended)
 python -m venv venv
+
+# TIP: If you get a "Script execution is disabled" error, run: 
+# Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 .\venv\Scripts\activate
 
 # Install Python dependencies
@@ -57,7 +60,7 @@ Open [http://localhost:3000](http://localhost:3000) to access the platform.
 
 ---
 
-## 🐳 Docker Setup (Windows)
+## Docker Setup (Windows)
 
 To run this project on Windows using Docker, follow these steps:
 
@@ -90,9 +93,64 @@ docker compose logs -f
 
 ---
 
-## 🚀 Quick Start (Local Setup)
+## Mobile Development (Android)
 
-## 📚 Documentation
+To run the application on an Android device or emulator:
+
+### 1. Windows Environment Variables (First Time Only)
+If you are on Windows, you must configure your Android SDK paths:
+1.  Search for **"Edit the system environment variables"** in your Start menu.
+2.  Click **Environment Variables**.
+3.  Under **User variables**, click **New** and add:
+    *   **Variable name:** `ANDROID_HOME`
+    *   **Variable value:** `%LOCALAPPDATA%\Android\Sdk`
+4.  Find the `Path` variable, click **Edit**, and add these two new lines:
+    *   `%ANDROID_HOME%\platform-tools`
+    *   `%ANDROID_HOME%\emulator`
+5.  **Restart your terminal** for changes to take effect.
+
+### 2. Linux KVM Setup (For Emulator)
+If you are on Linux and want to use the Android Emulator, ensure Hardware Acceleration is enabled:
+1.  Install KVM checker: `sudo apt install cpu-checker`
+2.  Run `kvm-ok`. If it says "KVM acceleration can be used", you are good.
+3.  If not, enable **Virtualization (VT-x/AMD-V)** in your BIOS.
+4.  Add your user to the KVM group:
+    ```bash
+    sudo adduser $USER kvm
+    sudo chown $USER /dev/kvm
+    ```
+5.  **Restart your computer**.
+
+### 3. Change IP for Network Changes
+If your network changes (e.g., switching Wi-Fi), you must update the server URL so the mobile app can reach your local machine:
+1. Open [**capacitor.config.ts**](./capacitor.config.ts).
+2. Update the `url` field under `server` with your current local IP address:
+   ```typescript
+   server: {
+     url: 'http://YOUR_NEW_IP:3000',
+     cleartext: true
+   }
+   ```
+   *   **Linux**: Run `hostname -I` to find your IP.
+   *   **Windows**: Run `ipconfig` in PowerShell/CMD and look for `IPv4 Address`.
+
+### 3. Run the Development Server
+Ensure your local server is running:
+```bash
+npm run dev
+```
+
+### 4. Open in Android Studio
+To open the Android project and run it on a device:
+```bash
+npm run cap:open:android
+```
+Once Android Studio opens, click the **"Run"** button (green play icon) to launch the app on your connected device or emulator.
+
+---
+
+
+## Documentation
 
 For more detailed information, please refer to:
 - [**User Guide**](./USER_GUIDE.md): Page-by-page instructions and button usage.
@@ -101,7 +159,7 @@ For more detailed information, please refer to:
 
 ---
 
-## 🧠 Training the Diagnostic Engine
+## Training the Diagnostic Engine
 
 The platform features a custom-built diagnostic engine that learns from your provided histology samples.
 
@@ -121,7 +179,7 @@ This updates the `scripts/model_weights.json` used by the analysis engine.
 
 ---
 
-## 🔬 Image Analysis Workflow
+## Image Analysis Workflow
 
 Once trained, the system performs a multi-step check on every uploaded image:
 
@@ -136,7 +194,7 @@ Once trained, the system performs a multi-step check on every uploaded image:
 
 ---
 
-## 📄 Key PDF Features
+## Key PDF Features
 The downloaded diagnostic reports include:
 - **Scan ID & Timestamp** for traceability.
 - **Color-coded Status** (Emerald for Healthy, Rose for Cancer).
@@ -145,7 +203,7 @@ The downloaded diagnostic reports include:
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 - **Frontend**: Next.js 14, Tailwind CSS, Framer Motion, Lucide Icons.
 - **Backend**: Next.js API Routes, Python 3 (Subprocess Bridge).
 - **Computer Vision**: OpenCV, NumPy.

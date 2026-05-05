@@ -65,7 +65,7 @@ const AddOrganModal = ({ isOpen, onClose, onSuccess }: AddOrganModalProps) => {
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto glass p-8 rounded-3xl"
+            className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto glass p-4 sm:p-8 rounded-3xl"
             onClick={e => e.stopPropagation()}
           >
             <div className="flex items-center justify-between mb-8">
@@ -73,7 +73,7 @@ const AddOrganModal = ({ isOpen, onClose, onSuccess }: AddOrganModalProps) => {
                 <div className="p-2 rounded-lg medical-gradient">
                   <Database className="w-6 h-6 text-white" />
                 </div>
-                <h2 className="text-2xl font-bold text-white">Add New Body Part</h2>
+                <h2 className="text-xl sm:text-2xl font-bold text-white">Add New Body Part</h2>
               </div>
               <button onClick={onClose} className="p-2 hover:bg-slate-800 rounded-full transition-colors text-slate-400 hover:text-white">
                 <X className="w-6 h-6" />
@@ -131,7 +131,7 @@ const AddOrganModal = ({ isOpen, onClose, onSuccess }: AddOrganModalProps) => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4 border-t border-slate-800">
                 {/* Normal Metrics */}
                 <div className="space-y-4">
-                  <h3 className="text-lg font-bold flex items-center gap-2 text-cyan-400">
+                  <h3 className="text-base sm:text-lg font-bold flex items-center gap-2 text-cyan-400">
                     <Thermometer className="w-4 h-4" /> Healthy Cell Data
                   </h3>
                   <div className="grid grid-cols-2 gap-4">
@@ -190,17 +190,17 @@ const AddOrganModal = ({ isOpen, onClose, onSuccess }: AddOrganModalProps) => {
                 </div>
               </div>
 
-              <div className="flex items-center justify-end gap-4 pt-8">
+              <div className="flex flex-col sm:flex-row items-center justify-end gap-3 sm:gap-4 pt-8">
                 <button
                   type="button"
                   onClick={onClose}
-                  className="px-6 py-3 rounded-xl hover:bg-slate-800 text-white transition-colors"
+                  className="w-full sm:w-auto px-6 py-3 rounded-xl hover:bg-slate-800 text-white transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex items-center gap-2 px-8 py-3 rounded-xl medical-gradient text-white font-bold shadow-lg shadow-cyan-900/20 hover:shadow-cyan-500/20 transition-all"
+                  className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3 rounded-xl medical-gradient text-white font-bold shadow-lg shadow-cyan-900/20 hover:shadow-cyan-500/20 transition-all"
                 >
                   <Save className="w-4 h-4" />
                   Save Organ Data

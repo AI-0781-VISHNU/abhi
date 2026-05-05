@@ -45,11 +45,11 @@ const OrganDashboard = () => {
   }, [])
 
   return (
-    <section className="py-24 bg-slate-950 font-sans">
-      <div className="container mx-auto px-8">
+    <section className="py-12 sm:py-24 bg-slate-950 font-sans">
+      <div className="container mx-auto px-4 sm:px-8">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-16 gap-6">
           <div>
-            <h2 className="text-4xl font-bold text-white mb-4">Choose Body Part</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Choose Body Part</h2>
             <p className="text-slate-400">Pick a body part to see healthy vs cancer cell data.</p>
           </div>
           <button 
