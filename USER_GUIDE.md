@@ -1,6 +1,6 @@
-# 🩺 Cancer Analysis Platform: User Guide
+# CellSight AI: User Guide
 
-Welcome to the **Cancer Analysis Platform**. This manual will guide you through the features and usage of the platform, from image scanning to professional report generation.
+Welcome to **CellSight AI**. This manual will guide you through the features and usage of the platform, from image scanning to professional report generation.
 
 ---
 
